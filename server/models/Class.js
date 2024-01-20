@@ -1,6 +1,6 @@
 const DataTypes = require('sequelize');
 const sequelize = require('../db');
-const User = require('./User')
+const User = require('./User');
 
 const Class = sequelize.define('Class', {
     name: {
@@ -31,3 +31,5 @@ Class.hasOne(User, {
     targetKey: 'user_id',
     onDelete: 'NO ACTION'
 })
+
+module.exports = Class;

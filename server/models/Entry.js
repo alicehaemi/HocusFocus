@@ -31,3 +31,5 @@ Entry.hasOne(Class, {
     targetKey: 'class_id',
     onDelete: 'NO ACTION'
 })
+
+module.exports = Entry;

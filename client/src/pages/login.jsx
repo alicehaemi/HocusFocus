@@ -5,6 +5,8 @@ import "../styles.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Logo from "./icons/logo-blue.png";
+import { MainCard } from "../styledComponents";
+import { BlueButton } from "../styledComponents";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -25,30 +27,40 @@ export default function Login() {
     <div>
       <Stack direction="column" alignItems="center" justifyContent="center">
         <div className="centered">
-          <Card variant="outlined">
+          <MainCard>
             <Stack margin="10em">
-              <h2 style={{ margin: 0 }}>
-                Welcome back, Let’s get you logged in
-              </h2>
-              {/* <img src={Logo} alt="Logo" /> */}
+              <h2 style={{ margin: 0 }}>Welcome, let’s get you logged in</h2>
               <Stack
                 spacing={1}
                 margin={2}
                 justifyContent="center"
                 alignItems="center"
+                width="100%"
               >
-                <TextField id="username" label="Username" variant="outlined" />
                 <TextField
+                  className="loginComps"
+                  id="username"
+                  label="Username"
+                  variant="outlined"
+                />
+                <TextField
+                  className="loginComps"
                   id="password"
                   label="Password"
                   type="password"
                   variant="outlined"
                 />
                 <a onClick={handleSignUp}>Don’t have an account?</a>
-                <Button onClick={handleLogin}>Login</Button>
+                <BlueButton
+                  className="blueButton"
+                  variant="contained"
+                  onClick={handleLogin}
+                >
+                  Login
+                </BlueButton>
               </Stack>
             </Stack>
-          </Card>
+          </MainCard>
         </div>
       </Stack>
     </div>

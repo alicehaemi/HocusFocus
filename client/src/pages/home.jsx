@@ -12,23 +12,15 @@ import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import { StyledRating } from "../styledComponents";
 
 export default function Home() {
   const navigate = useNavigate();
   const [value, setValue] = React.useState(0);
 
-  //   const mainRedirectClick = () => {
-  //     navigate("/main");
-  //   };
-
-  const StyledRating = styled(Rating)({
-    "& .MuiRating-iconFilled": {
-      color: "#18357F",
-    },
-    "& .MuiRating-iconHover": {
-      color: "#18357F",
-    },
-  });
+  const handleAddCourseButton = () => {
+    navigate("/addCourse");
+  };
 
   const ClassCard = () => {
     return (
@@ -77,9 +69,13 @@ export default function Home() {
   const ReportButtons = () => {
     return (
       <>
-        <Stack direction="row">
-          <Button>Generate Monthly Report</Button>
-          <Button>Generate Weekly Report</Button>
+        <Stack direction="row" spacing={2}>
+          <Button variant="contained" style={{ textTransform: "unset" }}>
+            Generate Monthly Report
+          </Button>
+          <Button variant="contained" style={{ textTransform: "unset" }}>
+            Generate Weekly Report
+          </Button>
         </Stack>
       </>
     );
@@ -90,7 +86,7 @@ export default function Home() {
       <>
         <Card>
           {/* <h1>Settings</h1> */}
-          <IconButton aria-label="addCourse">
+          <IconButton aria-label="addCourse" onClick={handleAddCourseButton}>
             <AddIcon />
           </IconButton>
           <IconButton aria-label="settings">
@@ -110,7 +106,7 @@ export default function Home() {
         <h1>Graph Stack</h1>
         <Stack>
           <GraphCard />
-          <Stack direction="row">
+          <Stack direction="row" spacing={2} marginBlock={2}>
             <ReportButtons />
             <SettingsCard />
           </Stack>

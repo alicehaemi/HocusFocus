@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
 import Home from "./home";
 import Login from "./login";
+import AddCourse from "./addCourse";
 import {
   BrowserRouter as Router,
   Routes,
@@ -32,7 +33,7 @@ const App = () => {
           {accessToken ? (
             <>
               <Route path="/" element={<Home />} />
-              {/* <Route path="/" element={<Home />} /> */}
+              <Route path="/addCourse" element={<AddCourse />} />
             </>
           ) : (
             <Route path="/" element={<Navigate to="/login" />} />
@@ -43,30 +44,6 @@ const App = () => {
     </div>
   );
 };
-
-<div>
-  <Router>
-    {/* <ResponsiveAppBar /> */}
-    <Routes>
-      <Route path="/" element={<Home />} />
-    </Routes>
-  </Router>
-</div>;
-
-// function App() {
-//   const theme = useTheme();
-//   const colorMode = React.useContext(ColorModeContext);
-//   return (
-//     <div className="App">
-//       <Router>
-//         {/* <ResponsiveAppBar /> */}
-//         <Routes>
-//           <Route path="/" element={<Home />} />
-//         </Routes>
-//       </Router>
-//     </div>
-//   );
-// }
 
 export default function ToggleColorMode() {
   const [mode, setMode] = React.useState("light");
@@ -85,12 +62,35 @@ export default function ToggleColorMode() {
         palette: {
           mode: "light",
           background: {
-            default: "#F3F3F3",
+            default: "#f9f5ec",
           },
-          // lightGreen: "#7FD486",
         },
         typography: {
-          fontFamily: "EB Garamond",
+          fontFamily: "Red Hat Display",
+        },
+        components: {
+          // Name of the component
+          MuiTextField: {
+            styleOverrides: {
+              // Name of the slot
+              root: {
+                // Some CSS
+                // backgroundColor: "#D9D9D9",
+                // borderWidth: "0px",
+              },
+            },
+          },
+          MuiButton: {
+            styleOverrides: {
+              root: {
+                backgroundColor: "#18357F",
+                textTransform: "unset",
+                fontFamily: "Red Hat Display",
+                fontWeight: 500,
+                // width: "100%",
+              },
+            },
+          },
         },
       }),
     [mode]

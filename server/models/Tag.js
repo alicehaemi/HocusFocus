@@ -1,6 +1,5 @@
 const DataTypes = require('sequelize');
 const sequelize = require('../db');
-
 const Entry = require('./Entry')
 
 const Tag = sequelize.define('Tag', {
@@ -27,3 +26,5 @@ Tag.hasOne(Entry, {
     targetKey: 'entry_id',
     onDelete: 'NO ACTION'
 })
+
+module.exports = Tag;

@@ -9,7 +9,7 @@ router.route('/create').post((req, res) => {
         email: req.body.email,
         password: req.body.password
     })
-    .then(() => res.json("Successfully Added!"))
+    .then(() => res.json("Added!"))
     .catch((error) => console.error(error))
 })
 
@@ -25,7 +25,7 @@ router.route('/login').post((req, res) => {
         password: req.body.password
     })
     .then((user) => {
-        const token = jwt.sign({ email: user.email}, process.env.JWTOKEN, { expiresIn: '1h'})
+        const token = jwt.sign({ id: user.id}, process.env.JWTOKEN, { expiresIn: '1h'})
         res.json({token});
     })
     .catch((error) => console.error(error))

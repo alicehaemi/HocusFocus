@@ -18,9 +18,13 @@ returns: token
 
 ## Class (/class)
 ### create
-params: token, name, date
+params: token, name, date, startTime, endTime, user_id
 
-returns: "Added!"
+Notes on date: 
+MTWRFSU
+Sunday is U
+
+returns: id (this is the class id)
 
 
 ## Entry (/entry)

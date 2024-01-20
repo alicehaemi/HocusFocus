@@ -13,6 +13,16 @@ const Class = sequelize.define('Class', {
         allowNull: false
     },
 
+    startTime: {
+        type: DataTypes.TIME,
+        allowNull: false
+    },
+
+    endTime: {
+        type: DataTypes.TIME,
+        allowNull: false
+    },
+
     user_id: {
         type: DataTypes.INTEGER,
         allowNull: false

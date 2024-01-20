@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Class = require('../models/class');
+const Class = require('../models/Class');
 const JWTAuthenticate = require('../middleware/JWTAuthenticate');
 require('dotenv').config()
 

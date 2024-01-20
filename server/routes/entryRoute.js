@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Entry = require('../models/entry');
+const Entry = require('../models/Entry');
 require('dotenv').config()
 
 router.route('/create').post((req, res) => {

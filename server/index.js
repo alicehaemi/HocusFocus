@@ -9,6 +9,8 @@ app.use(cors())
 app.use(bodyParser.json())
 
 app.use("/user", require("./routes/userRoute"));
+app.use("/class", require("./routes/classRoute"));
+app.use("/entry", require("./routes/entryRoute"));
 
 const port = process.env.PORT || 8080;
 

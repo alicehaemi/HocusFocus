@@ -1,0 +1,11 @@
+/* body,
+html {
+  background-color: #f9f5ec;
+} */
+
+.centered {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

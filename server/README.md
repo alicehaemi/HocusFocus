@@ -8,6 +8,7 @@ Most functions don't return at all if it fails so read the error printed in term
 ## User (/user/)
 ### create
 params: email, password
+
 returns: "Added!"
 
 ### login

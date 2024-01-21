@@ -3,12 +3,16 @@ import { Stack, Button, Card, TextField } from "@mui/material";
 import "../styles.css";
 // import SpotifyIcon from "../assets/spotify icon.png";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Logo from "./icons/logo-blue.png";
 import { MainCard } from "../styledComponents";
 import { BlueButton } from "../styledComponents";
 
+import apis from '../apis';
+
 export default function Login() {
+  const [userName, setUserName] = useState();
+  const [password, setPassword] = useState();
   const navigate = useNavigate();
 
   //   const mainRedirectClick = () => {
@@ -20,6 +24,15 @@ export default function Login() {
   };
 
   const handleLogin = () => {
+    const payload = {
+      username: userName,
+      password: password
+    }
+    apis.login(payload)
+    .then(res => {
+      localStorage.setItem('token', res.data.token)
+    })
+    .catch(error => console.error(error));
     navigate("/");
   };
 
@@ -42,6 +55,7 @@ export default function Login() {
                   id="username"
                   label="Username"
                   variant="outlined"
+                  onChange={e => setUserName(e.target.value)}
                 />
                 <TextField
                   className="loginComps"
@@ -49,6 +63,7 @@ export default function Login() {
                   label="Password"
                   type="password"
                   variant="outlined"
+                  onChange={e => setPassword(e.target.value)}
                 />
                 <a onClick={handleSignUp}>Don’t have an account?</a>
                 <BlueButton

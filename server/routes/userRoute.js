@@ -21,8 +21,10 @@ router.route('/testing').post((req, res) => {
 
 router.route('/login').post((req, res) => {
     User.findOne({
-        email: req.body.email,
-        password: req.body.password
+        where: {
+            email: req.body.username,
+            password: req.body.password
+        }
     })
     .then((user) => {
         const token = jwt.sign({ id: user.id}, process.env.JWTOKEN, { expiresIn: '1h'})

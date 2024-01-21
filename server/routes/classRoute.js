@@ -2,6 +2,7 @@ const router = require('express').Router();
 const Class = require('../models/Class');
 const JWTAuthenticate = require('../middleware/JWTAuthenticate');
 const Entry = require('../models/Entry');
+const { Op, Sequelize } = require("sequelize");
 require('dotenv').config()
 
 function changeTime(dateString) {
@@ -48,7 +49,9 @@ router.route('/day').post((req, res) => {
     }
     const days = ["U", "M", "T", "W", "R", "F", "S"]
     const dayDate = new Date(req.body.date)
+    console.log(dayDate)
     const day = days[dayDate.getDay()]
+    console.log(day)
     Class.findAll({
         where: {
             [Op.and]: [
@@ -65,15 +68,13 @@ router.route('/day').post((req, res) => {
         include: [{
             model: Entry,
             where: {
-                id: table_id
+                class_id: Sequelize.col('Class.id')
             },
             required: false
         }]
     })
-    .then((classes) => {
-        res.json(classes)
-    })
-    .error((error) => console.error(error))
+    .then((classes) => res.json(classes))
+    .catch((error) => console.error(error))
 })
 
 module.exports = router;

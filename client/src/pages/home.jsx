@@ -26,7 +26,7 @@ import { StyledRating } from "../styledComponents";
 export default function Home() {
   const navigate = useNavigate();
   const [value, setValue] = useState(0);
-  const [classes, setClasses] = useState(["CS 180", "CS 240", "CS 193"]);
+  const [classes, setClasses] = useState({});
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -49,12 +49,21 @@ export default function Home() {
   useEffect(() => {
     const payload = {
       token: localStorage.getItem("token"),
-      name: new Date(),
+      date: new Date(),
     };
 
     apis
       .getClasses(payload)
-      .then((classes) => console.log(classes))
+      .then((classes) => {
+        const classData = classes.data.map((item) => {
+          if (item.Entries.length > 0) {
+            return {name: item.name, score: item.Entries[0].score}
+          } else {
+            return {name: item.name, score: 0}
+          }
+        })
+        setClasses(classData);
+      })
       .catch((error) => console.error(error));
   }, []);
 
@@ -69,13 +78,13 @@ export default function Home() {
         >
           <h1>Class Stack</h1>
           {classes.map((item) => (
-            <ClassCard key={item} name={item} />
+            <ClassCard key={item.name} name={item.name} score={item.score} />
           ))}
         </Stack>
       </>
     );
   };
-  const ClassCard = ({ name }) => {
+  const ClassCard = ({ name, score }) => {
     return (
       <>
         <Card>
@@ -93,7 +102,8 @@ export default function Home() {
               }
               icon={<CircleIcon fontSize="inherit" />}
               emptyIcon={<CircleOutlinedIcon fontSize="inherit" />}
-              defaultValue={0}
+              // defaultValue={0}
+              value={score}
               max={3}
               size="large"
             />

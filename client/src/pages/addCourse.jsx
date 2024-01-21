@@ -15,7 +15,8 @@ import IconButton from "@mui/material/IconButton";
 
 export default function AddCourse() {
   const navigate = useNavigate();
-  const [weekdays, setWeekdays] = useState([
+  const [selectedWeekDays, setSelectedWeekDays] = useState("");
+  const [weekDays, setWeekDays] = useState([
     {
       day: "M",
       select: false,
@@ -29,7 +30,7 @@ export default function AddCourse() {
       select: false,
     },
     {
-      day: "T",
+      day: "R",
       select: false,
     },
     {
@@ -41,24 +42,43 @@ export default function AddCourse() {
       select: false,
     },
     {
-      day: "S",
+      day: "U",
       select: false,
     },
   ]);
+
+  const dayMap = {
+    M: "M",
+    T: "T",
+    W: "W",
+    R: "T",
+    F: "F",
+    S: "S",
+    U: "S",
+  };
 
   const handleBack = () => {
     navigate("/");
   };
 
   const handleSelect = (ob, ind) => {
-    const newArr = weekdays.map((obj, i) => {
+    const newArr = weekDays.map((obj, i) => {
       if (i === ind) {
         return { ...obj, select: !obj.select };
       }
       return obj;
     });
 
-    setWeekdays(newArr);
+    setWeekDays(newArr);
+
+    const selectedDays = newArr
+      .filter((item) => item.select)
+      .map((item) => {
+        return item.day;
+      })
+      .join("");
+
+    setSelectedWeekDays(selectedDays);
   };
 
   const InputClassName = () => {
@@ -81,7 +101,7 @@ export default function AddCourse() {
         <Stack width="100%">
           <h3>Day(s) of Week</h3>
           <Stack direction="row" spacing={2}>
-            {weekdays.map((day, i) => (
+            {weekDays.map((day, i) => (
               <Avatar
                 sx={{
                   bgcolor: `${day.select ? "#1a73e8" : "grey"}`,
@@ -93,7 +113,7 @@ export default function AddCourse() {
                 onClick={() => handleSelect(day, i)}
                 alt="Remy Sharp"
               >
-                {day.day}
+                {dayMap[day.day]}
               </Avatar>
             ))}
           </Stack>

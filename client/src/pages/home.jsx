@@ -1,9 +1,17 @@
 import * as React from "react";
-import { Stack, Button, Card, Rating, styled } from "@mui/material";
+import {
+  Stack,
+  Button,
+  Card,
+  Rating,
+  styled,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import "../styles.css";
 // import SpotifyIcon from "../assets/spotify icon.png";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 
 // import { CircleIcon, CircleOutlinedIcon, AddIcon } from "@mui/icons-material";
@@ -16,10 +24,24 @@ import { StyledRating } from "../styledComponents";
 
 export default function Home() {
   const navigate = useNavigate();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleAddCourseButton = () => {
     navigate("/addCourse");
+  };
+
+  const handleLogout = () => {
+    // TODO: handle authentication
+    navigate("/login");
   };
 
   const ClassCard = () => {
@@ -85,14 +107,34 @@ export default function Home() {
     return (
       <>
         <Card>
-          {/* <h1>Settings</h1> */}
           <IconButton aria-label="addCourse" onClick={handleAddCourseButton}>
             <AddIcon />
           </IconButton>
-          <IconButton aria-label="settings">
+
+          <IconButton
+            aria-label="settings"
+            aria-controls={anchorEl ? "settings" : undefined}
+            aria-haspopup="true"
+            onClick={handleClick}
+          >
             <SettingsOutlinedIcon />
           </IconButton>
-          <IconButton aria-label="logout">
+
+          <Menu
+            id="settings"
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "settings",
+            }}
+          >
+            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem onClick={handleClose}>My account</MenuItem>
+            <MenuItem onClick={handleClose}>Logout</MenuItem>
+          </Menu>
+
+          <IconButton aria-label="logout" onClick={handleLogout}>
             <LogoutOutlinedIcon />
           </IconButton>
         </Card>

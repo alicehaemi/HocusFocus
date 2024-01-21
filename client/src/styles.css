@@ -2,7 +2,10 @@
 
 body,
 html {
-  background-color: #f9f5ec;
+  background: 
+  radial-gradient(500px 500px ellipse at top left, #18357f, transparent),
+  radial-gradient(400px 400px ellipse at bottom , #18357f, transparent),
+  radial-gradient(450px 450px ellipse at right , #18357f, transparent);
 }
 
 * {
@@ -57,8 +60,9 @@ a:hover {
   justify-content: center;
   width: 150px; /* Adjust the width and height as needed */
   height: 150px;
-  background-color: #ccc; /* Gray background color */
+  background-color: #f9f5ec; /* Gray background color */
   border-radius: 50%; /* Make it a circle using border-radius */
+  border:5px solid #18357f;    
   overflow: hidden; /* Ensure the image is within the circular container */
   margin: 1em;
 }
@@ -74,6 +78,6 @@ a:hover {
 }
 
 .logo-img {
-  width: 80%; /* Adjust the width of the logo image */
+  width: 100%; /* Adjust the width of the logo image */
   height: auto; /* Maintain the aspect ratio of the logo */
 }

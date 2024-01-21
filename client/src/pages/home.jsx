@@ -42,8 +42,7 @@ export default function Home() {
   };
 
   const handleLogout = () => {
-    // TODO: handle authentication
-    localStorage.removeItem('token')
+    localStorage.removeItem("token");
     navigate("/login");
   };
 
@@ -59,9 +58,13 @@ export default function Home() {
         console.log(classes.data);
         const classData = classes.data.map((item) => {
           if (item.Entries.length > 0) {
-            return { name: item.name, score: item.Entries[0].score };
+            return {
+              id: item.id,
+              name: item.name,
+              score: item.Entries[0].score,
+            };
           } else {
-            return { name: item.name, score: 0 };
+            return { id: item.id, name: item.name, score: 0 };
           }
         });
         setClasses(classData);
@@ -72,6 +75,23 @@ export default function Home() {
   useEffect(() => {
     console.log(classes);
   }, [classes]);
+
+  const handleRatingChange = (id, newValue) => {
+    // local change
+    setClasses((prevClasses) =>
+      prevClasses.map((classItem) =>
+        classItem.id === id ? { ...classItem, score: newValue } : classItem
+      )
+    );
+
+    const payload = {
+      token: localStorage.getItem("token"),
+      id: id,
+      score: newValue,
+    };
+
+    apis.updateRating(payload).catch((error) => console.error(error));
+  };
 
   const ClassesStack = () => {
     return (
@@ -84,13 +104,18 @@ export default function Home() {
         >
           <h1>Class Stack</h1>
           {classes.map((item) => (
-            <ClassCard key={item.name} name={item.name} score={item.score} />
+            <ClassCard
+              key={item.id}
+              id={item.id}
+              name={item.name}
+              score={item.score}
+            />
           ))}
         </Stack>
       </>
     );
   };
-  const ClassCard = ({ name, score }) => {
+  const ClassCard = ({ id, name, score }) => {
     return (
       <>
         <Card>
@@ -108,10 +133,12 @@ export default function Home() {
               }
               icon={<CircleIcon fontSize="inherit" />}
               emptyIcon={<CircleOutlinedIcon fontSize="inherit" />}
-              // defaultValue={0}
               value={score}
               max={3}
               size="large"
+              onChange={(event, newValue) => {
+                handleRatingChange(id, newValue);
+              }}
             />
           </Stack>
         </Card>

@@ -8,7 +8,7 @@ const Class = sequelize.define('Class', {
         allowNull: false
     },
 
-    date: { // custome date string
+    days: { // custome date string
         type: DataTypes.STRING,
         allowNull: false
     },

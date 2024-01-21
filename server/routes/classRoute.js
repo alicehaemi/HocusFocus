@@ -13,13 +13,11 @@ function changeTime(dateString) {
 }
 
 router.route('/create').post((req, res) => {
-    console.log("hello")
     const userID = JWTAuthenticate(req.body.token)
     if (userID === null) {
         res.json("invalid token")
         return
     }
-    console.log("hello")
 
     Class.create({
         name: req.body.name,
@@ -49,9 +47,7 @@ router.route('/day').post((req, res) => {
     }
     const days = ["U", "M", "T", "W", "R", "F", "S"]
     const dayDate = new Date(req.body.date)
-    console.log(dayDate)
     const day = days[dayDate.getDay()]
-    console.log(day)
     Class.findAll({
         where: {
             [Op.and]: [

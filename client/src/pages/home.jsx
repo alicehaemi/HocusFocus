@@ -13,7 +13,7 @@ import "../styles.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
-import Logo from "./icons/logo-blue.png";
+import Logo from "./logos/logo-blue.png";
 import apis from "../apis";
 
 import CircleIcon from "@mui/icons-material/Circle";
@@ -26,7 +26,7 @@ import { StyledRating } from "../styledComponents";
 export default function Home() {
   const navigate = useNavigate();
   const [value, setValue] = useState(0);
-  const [classes, setClasses] = useState({});
+  const [classes, setClasses] = useState([]);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -55,17 +55,22 @@ export default function Home() {
     apis
       .getClasses(payload)
       .then((classes) => {
+        console.log(classes.data);
         const classData = classes.data.map((item) => {
           if (item.Entries.length > 0) {
-            return {name: item.name, score: item.Entries[0].score}
+            return { name: item.name, score: item.Entries[0].score };
           } else {
-            return {name: item.name, score: 0}
+            return { name: item.name, score: 0 };
           }
-        })
+        });
         setClasses(classData);
       })
       .catch((error) => console.error(error));
   }, []);
+
+  useEffect(() => {
+    console.log(classes);
+  }, [classes]);
 
   const ClassesStack = () => {
     return (

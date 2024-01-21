@@ -12,10 +12,14 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { BlueButton } from "../styledComponents";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import IconButton from "@mui/material/IconButton";
+import apis from '../apis';
 
 export default function AddCourse() {
   const navigate = useNavigate();
+  const [courseName, setCourseName] = useState("")
   const [selectedWeekDays, setSelectedWeekDays] = useState("");
+  const [startTime, setStartTime] = useState()
+  const [endTime, setEndTime] = useState()
   const [weekDays, setWeekDays] = useState([
     {
       day: "M",
@@ -57,6 +61,26 @@ export default function AddCourse() {
     U: "S",
   };
 
+  const handleSubmit = () => {
+    console.log(courseName)
+    console.log(selectedWeekDays)
+    console.log(startTime.toDate().getHours())
+    console.log(endTime.toDate())
+    const payload = {
+      token: localStorage.getItem('token'),
+      name: courseName,
+      days: selectedWeekDays,
+      startTime: startTime.toDate(),
+      endTime: endTime.toDate()
+    }
+    apis.createClass(payload)
+    .then((res) => {
+    window.alert("Class created!")
+    navigate("/");
+    })
+    .catch(error => console.error(error));
+  }
+
   const handleBack = () => {
     navigate("/");
   };
@@ -81,19 +105,11 @@ export default function AddCourse() {
     setSelectedWeekDays(selectedDays);
   };
 
-  const InputClassName = () => {
-    return (
-      <Stack width="100%">
-        <h3>Class Name</h3>
-        <TextField
-          className="loginComps"
-          id="courseName"
-          label="Course Name"
-          variant="outlined"
-        />
-      </Stack>
-    );
-  };
+  // const InputClassName = () => {
+  //   return (
+
+  //   );
+  // };
 
   const SelectDays = () => {
     return (
@@ -117,23 +133,6 @@ export default function AddCourse() {
               </Avatar>
             ))}
           </Stack>
-        </Stack>
-      </>
-    );
-  };
-
-  const SelectTime = () => {
-    return (
-      <>
-        <Stack justifyContent="stretch" width="100%">
-          <h3>Start Time</h3>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <TimePicker label="Start Time" />
-          </LocalizationProvider>
-          <h3>End Time</h3>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <TimePicker label="End Time" />
-          </LocalizationProvider>
         </Stack>
       </>
     );
@@ -165,15 +164,34 @@ export default function AddCourse() {
                 alignItems="center"
                 width="100%"
               >
-                <InputClassName />
+                {/* <InputClassName /> */}
+                <Stack width="100%">
+                  <h3>Course Name</h3>
+                  <TextField
+                    className="loginComps"
+                    id="courseName"
+                    label="Course Name"
+                    variant="outlined"
+                    onChange={(e) => setCourseName(e.target.value)}
+                  />
+                </Stack>
                 <SelectDays />
-                <SelectTime />
+                <Stack justifyContent="stretch" width="100%">
+                  <h3>Start Time</h3>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <TimePicker label="Start Time" onChange={(x) => setStartTime(x)} />
+                  </LocalizationProvider>
+                  <h3>End Time</h3>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <TimePicker label="End Time" onChange={(x) => setEndTime(x)} />
+                  </LocalizationProvider>
+                </Stack>
 
                 <Button
                   variant="contained"
                   width="100%"
                   style={{ margin: "3em" }}
-                  // onClick={handleLogin}
+                  onClick={handleSubmit}
                 >
                   Add Course
                 </Button>

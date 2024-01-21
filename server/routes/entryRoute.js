@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Entry = require('../models/Entry');
+const JWTAuthenticate = require('../middleware/JWTAuthenticate');
 
 require('dotenv').config()
 
@@ -14,6 +15,11 @@ router.route('/create').post((req, res) => {
 })
 
 router.route('/update').post((req, res) => {
+    const userID = JWTAuthenticate(req.body.token)
+    if (userID === null) {
+        res.json("invalid token")
+        return
+    }
     Entry.update({ score: req.body.score}, {
         where: {
             id: req.body.id

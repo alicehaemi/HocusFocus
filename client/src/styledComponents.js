@@ -24,6 +24,6 @@ export const BlueButton = styled(Button)({
 export const MainCard = styled(Card)({
   border: "5px solid #18357F",
   backgroundColor: "#F9F5EC",
-  // width: "80%",
-  // height: "80%",
+  width: "80vh",
+  height: "70vh",
 });

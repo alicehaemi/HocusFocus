@@ -15,6 +15,10 @@ h2 {
   font-weight: 400;
 }
 
+h3 {
+  margin: 0;
+}
+
 a {
   text-decoration: underline;
 }
@@ -45,4 +49,31 @@ a:hover {
 .loginComps {
   width: 100%;
   border-radius: 500;
+}
+
+.circle-logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px; /* Adjust the width and height as needed */
+  height: 150px;
+  background-color: #ccc; /* Gray background color */
+  border-radius: 50%; /* Make it a circle using border-radius */
+  overflow: hidden; /* Ensure the image is within the circular container */
+  margin: 1em;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px; /* Adjust the width and height as needed */
+  height: 150px;
+  overflow: hidden; /* Ensure the image is within the circular container */
+  margin: 0em;
+}
+
+.logo-img {
+  width: 80%; /* Adjust the width of the logo image */
+  height: auto; /* Maintain the aspect ratio of the logo */
 }

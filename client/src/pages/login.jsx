@@ -8,7 +8,7 @@ import Logo from "./icons/logo-blue.png";
 import { MainCard } from "../styledComponents";
 import { BlueButton } from "../styledComponents";
 
-import apis from '../apis';
+import apis from "../apis";
 
 export default function Login() {
   const [userName, setUserName] = useState();
@@ -26,13 +26,14 @@ export default function Login() {
   const handleLogin = () => {
     const payload = {
       username: userName,
-      password: password
-    }
-    apis.login(payload)
-    .then(res => {
-      localStorage.setItem('token', res.data.token)
-    })
-    .catch(error => console.error(error));
+      password: password,
+    };
+    apis
+      .login(payload)
+      .then((res) => {
+        localStorage.setItem("token", res.data.token);
+      })
+      .catch((error) => console.error(error));
     navigate("/");
   };
 
@@ -40,9 +41,12 @@ export default function Login() {
     <div>
       <Stack direction="column" alignItems="center" justifyContent="center">
         <div className="centered">
-          <MainCard>
-            <Stack margin="10em">
+          <MainCard style={{ marginBlock: "0em" }}>
+            <Stack margin="10em" justifyContent="center" alignItems="center">
               <h2 style={{ margin: 0 }}>Welcome, let’s get you logged in</h2>
+              <div class="circle-logo-container">
+                <img src={Logo} alt="Logo" class="logo-img" />
+              </div>
               <Stack
                 spacing={1}
                 margin={2}
@@ -55,7 +59,7 @@ export default function Login() {
                   id="username"
                   label="Username"
                   variant="outlined"
-                  onChange={e => setUserName(e.target.value)}
+                  onChange={(e) => setUserName(e.target.value)}
                 />
                 <TextField
                   className="loginComps"
@@ -63,7 +67,7 @@ export default function Login() {
                   label="Password"
                   type="password"
                   variant="outlined"
-                  onChange={e => setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <a onClick={handleSignUp}>Don’t have an account?</a>
                 <BlueButton

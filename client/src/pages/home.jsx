@@ -13,8 +13,9 @@ import "../styles.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
+import Logo from "./icons/logo-blue.png";
+import apis from "../apis";
 
-// import { CircleIcon, CircleOutlinedIcon, AddIcon } from "@mui/icons-material";
 import CircleIcon from "@mui/icons-material/Circle";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import AddIcon from "@mui/icons-material/Add";
@@ -25,6 +26,7 @@ import { StyledRating } from "../styledComponents";
 export default function Home() {
   const navigate = useNavigate();
   const [value, setValue] = useState(0);
+  const [classes, setClasses] = useState(["CS 180", "CS 240", "CS 193"]);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -44,12 +46,46 @@ export default function Home() {
     navigate("/login");
   };
 
-  const ClassCard = () => {
+  useEffect(() => {
+    const payload = {
+      token: localStorage.getItem("token"),
+      name: new Date(),
+    };
+
+    apis
+      .getClasses(payload)
+      .then((classes) => console.log(classes))
+      .catch((error) => console.error(error));
+  }, []);
+
+  const ClassesStack = () => {
+    return (
+      <>
+        <Stack
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={2}
+        >
+          <h1>Class Stack</h1>
+          {classes.map((item) => (
+            <ClassCard key={item} name={item} />
+          ))}
+        </Stack>
+      </>
+    );
+  };
+  const ClassCard = ({ name }) => {
     return (
       <>
         <Card>
-          <Stack justifyContent="center" alignItems="center" margin={2}>
-            <h3>Class Name</h3>
+          <Stack
+            justifyContent="center"
+            alignItems="center"
+            marginBlock="1em"
+            marginInline="5em"
+          >
+            <h3>{name}</h3>
             <StyledRating
               name="customized-color"
               getLabelText={(value) =>
@@ -63,17 +99,6 @@ export default function Home() {
             />
           </Stack>
         </Card>
-      </>
-    );
-  };
-
-  const ClassesStack = () => {
-    return (
-      <>
-        <Stack direction="column" justifyContent="center" alignItems="center">
-          <h1>Class Stack</h1>
-          <ClassCard />
-        </Stack>
       </>
     );
   };
@@ -160,7 +185,9 @@ export default function Home() {
   return (
     <div>
       <Stack direction="column" alignItems="center" justifyContent="center">
-        <h1 style={{ margin: 0 }}>HOME</h1>
+        <div class="logo-container">
+          <img src={Logo} alt="Logo" class="logo-img" />
+        </div>
         <Stack direction="row" spacing={10}>
           <ClassesStack />
           <GraphStack />

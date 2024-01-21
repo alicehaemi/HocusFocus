@@ -43,6 +43,7 @@ export default function Home() {
 
   const handleLogout = () => {
     // TODO: handle authentication
+    localStorage.removeItem('token')
     navigate("/login");
   };
 

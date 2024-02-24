@@ -3,6 +3,7 @@ const Class = require('../models/Class');
 const JWTAuthenticate = require('../middleware/JWTAuthenticate');
 const Entry = require('../models/Entry');
 const { Op, Sequelize } = require("sequelize");
+const sequelize = require('sequelize');
 require('dotenv').config()
 
 function changeTime(dateString) {
@@ -38,6 +39,18 @@ router.route('/testing').post((req, res) => {
     .then((classes) => res.json(classes))
     .catch((error) => console.error(error))
 })
+
+router.route("/dayData").post((req, res) => {
+  const [className, score] = sequelize.query("SELECT class.name, entry.score \
+FROM class, entry \
+WHERE input.user = class.user_id \
+AND input.date IN class.days \
+AND class.id  = entry.class_id \
+AND input \
+.date = entry.date")
+console.log(JSON.stringify(className))
+console.log(JSON.stringify(score))
+});
 
 router.route('/day').post((req, res) => {
     const userID = JWTAuthenticate(req.body.token)

@@ -81,3 +81,19 @@ a:hover {
   width: 100%; /* Adjust the width of the logo image */
   height: auto; /* Maintain the aspect ratio of the logo */
 }
+
+.one-third-width {
+  flex: 1;
+  max-width: 33.333%;
+}
+
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.center-text {
+  text-align: center;
+}

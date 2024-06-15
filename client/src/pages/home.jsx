@@ -16,6 +16,7 @@ import IconButton from "@mui/material/IconButton";
 import Logo from "./logos/logo-blue.png";
 import apis from "../apis";
 
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CircleIcon from "@mui/icons-material/Circle";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import AddIcon from "@mui/icons-material/Add";
@@ -149,8 +150,8 @@ export default function Home() {
   const GraphCard = () => {
     return (
       <>
-        <Card>
-          <h1>"Graph"</h1>
+        <Card className="center-content">
+          <h1>TIMER</h1>
         </Card>
       </>
     );
@@ -159,7 +160,7 @@ export default function Home() {
   const ReportButtons = () => {
     return (
       <>
-        <Stack direction="row" spacing={2}>
+        <Stack direction="column" spacing={2}>
           <Button variant="contained" style={{ textTransform: "unset" }}>
             Generate Monthly Report
           </Button>
@@ -175,8 +176,11 @@ export default function Home() {
     return (
       <>
         <Card>
-          <IconButton aria-label="addCourse" onClick={handleAddCourseButton}>
+          {/* <IconButton aria-label="addCourse" onClick={handleAddCourseButton}>
             <AddIcon />
+          </IconButton> */}
+          <IconButton aria-label="userProfile" >
+            <AccountCircleIcon />
           </IconButton>
 
           <IconButton
@@ -210,15 +214,86 @@ export default function Home() {
     );
   };
 
-  const GraphStack = () => {
+  const Badges = () => {
     return (
-      <Stack direction="column">
-        <h1>Graph Stack</h1>
+      <Stack direction="column" >
+        <h1 className="center-text">Badges</h1>
+        <Stack direction="row" spacing={2}>
+          <Button variant="contained" style={{ textTransform: "unset" }}>
+            Badge 1
+          </Button>
+          <Button variant="contained" style={{ textTransform: "unset" }}>
+            Badge 2
+          </Button>
+          <Button variant="contained" style={{ textTransform: "unset" }}>
+            Badge 3
+          </Button>
+        </Stack>
+      </Stack>
+    );
+  };
+
+  const AudioOption = () => {
+    const buttonStyle = {
+      textTransform: "unset",
+      minWidth: '100px',  // Set the desired width
+      minHeight: '100px', // Set the same value for height to make it square
+      maxWidth: '100px',
+      maxHeight: '100px',
+      flexGrow: 0 // Prevent stretching
+    };
+    return (
+      <>
+      <Stack direction="column" className="center-content">
+        <h1> Audio </h1>
+        <Stack direction="row" spacing={2}>
+          <Button variant="contained" sx={buttonStyle} style={{ textTransform: "unset"}}>
+            No sound
+          </Button>
+          <Button variant="contained" sx={buttonStyle} style={{ textTransform: "unset"}}>
+            Rain Falling
+          </Button>
+          <Button variant="contained" sx={buttonStyle} style={{ textTransform: "unset"}}>
+            Fire Crackling
+          </Button>
+        </Stack>
+      </Stack>
+      </>
+    );
+  };
+
+  const CourseOptions = () => {
+    return (
+      <Stack direction="column" className="center-content">
+        <h1>Course Options</h1>
+        <Stack>
+          <Stack direction="row" spacing={2}>
+            <Button variant="contained" onClick={handleAddCourseButton} style={{ textTransform: "unset" }}>
+              Add Course
+            </Button>
+            <Button variant="contained" style={{ textTransform: "unset" }}>
+              Edit Course
+            </Button>
+            <Button variant="contained" style={{ textTransform: "unset" }}>
+              Remove Course
+            </Button>
+          </Stack>
+        </Stack>
+      </Stack>
+    );
+  };
+
+  const TimerStack = () => {
+    return (
+      <Stack direction="column" spacing={2}>
+        <SettingsCard /> 
+        
         <Stack>
           <GraphCard />
-          <Stack direction="row" spacing={2} marginBlock={2}>
-            <ReportButtons />
-            <SettingsCard />
+          <Stack direction="column" spacing={2} marginBlock={2}>
+            <ReportButtons /> 
+            <AudioOption />
+            <CourseOptions />
           </Stack>
         </Stack>
       </Stack>
@@ -231,9 +306,12 @@ export default function Home() {
         <div class="logo-container">
           <img src={Logo} alt="Logo" class="logo-img" />
         </div>
-        <Stack direction="row" spacing={10}>
+        <Stack direction="row" spacing={30}>
+          <Badges />
           <ClassesStack />
-          <GraphStack />
+          <TimerStack />
+        </Stack>
+        <Stack direction="column" spacing={2}>
         </Stack>
       </Stack>
     </div>

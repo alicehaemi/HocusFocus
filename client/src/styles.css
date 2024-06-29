@@ -2,6 +2,9 @@
 
 body,
 html {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
   background: 
   radial-gradient(500px 500px ellipse at top left, #18357f, transparent),
   radial-gradient(400px 400px ellipse at bottom , #18357f, transparent),
@@ -12,6 +15,17 @@ html {
   font-family: "Red Hat Display", sans-serif;
   font-weight: 400;
   color: #18357f;
+}
+
+.menu-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35%;
+}
+
+.menu-bar button {
+  margin: 0 10px;
 }
 
 h2 {
@@ -39,7 +53,7 @@ a:hover {
 }
 
 .blueButton {
-  margin-inline: "20px";
+  margin-inline: 20px;
   width: 20%;
 }
 

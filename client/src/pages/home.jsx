@@ -150,7 +150,7 @@ export default function Home() {
   const GraphCard = () => {
     return (
       <>
-        <Card className="center-content">
+        <Card className="center-content" style={{ height: '200px' }}>
           <h1>TIMER</h1>
         </Card>
       </>
@@ -175,10 +175,7 @@ export default function Home() {
   const SettingsCard = () => {
     return (
       <>
-        <Card>
-          {/* <IconButton aria-label="addCourse" onClick={handleAddCourseButton}>
-            <AddIcon />
-          </IconButton> */}
+        <Card className="menu-card">
           <IconButton aria-label="userProfile" >
             <AccountCircleIcon />
           </IconButton>
